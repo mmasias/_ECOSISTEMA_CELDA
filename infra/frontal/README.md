@@ -6,7 +6,7 @@ Un único Caddy en Prometeus es dueño de los puertos 80 y 443 y reparte por sub
 |---|---|---|
 | `mmasias.cloud-ip.cc` | Portada del ecosistema: enlaces a cada servicio ([`home/index.html`](home/index.html)) | (estático, en este Caddy) |
 | `celda.mmasias.cloud-ip.cc` | CELDA ([pyCelda](https://github.com/mmasias/pyCelda)) | `pycelda-web` |
-| `encuestas.mmasias.cloud-ip.cc` | PULSO ([pyPULSO](https://github.com/mmasias/pyPULSO)) | `pulso-web` |
+| `pulso.mmasias.cloud-ip.cc` | PULSO ([pyPULSO](https://github.com/mmasias/pyPULSO)) | `pulso-web` |
 
 ## Por qué
 
@@ -14,7 +14,7 @@ Antes, el Caddy de pyCelda publicaba el 80 y el 443 y era el único sitio de la 
 
 - **Cada aplicación es independiente**: su propio Compose, su propio despliegue y su propio servicio web interno. El frontal solo termina TLS y reenvía.
 - **Una aplicación nueva** es un bloque de tres líneas en el [`Caddyfile`](Caddyfile). El DNS ya está resuelto con un comodín (`*.mmasias.cloud-ip.cc` CNAME `mmasias.cloud-ip.cc`, en ClouDNS): como solo la raíz es de DNS dinámico, los subdominios siguen a su IP sin actualizarse.
-- **Las cookies de cada aplicación quedan en su subdominio**: una sesión de CELDA no viaja a encuestas ni al revés.
+- **Las cookies de cada aplicación quedan en su subdominio**: una sesión de CELDA no viaja a PULSO ni al revés.
 
 ## Contrato con cada aplicación
 
@@ -43,7 +43,7 @@ curl -fsS https://celda.mmasias.cloud-ip.cc/api/health
 docker compose logs --tail=50 frontal | grep -i -E "error|certificate obtained"
 ```
 
-`encuestas.` responderá `502` hasta que PULSO esté desplegado: Caddy resuelve el alias al recibir la petición, no al arrancar.
+`pulso.` responderá `502` hasta que PULSO esté desplegado: Caddy resuelve el alias al recibir la petición, no al arrancar.
 
 **Marcha atrás**: `docker compose down` en el frontal, revertir el commit de pyCelda y `docker compose up -d --build` en pyCelda, que vuelve a publicar el 80 y el 443.
 

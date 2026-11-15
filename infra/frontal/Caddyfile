@@ -38,7 +38,7 @@ celda.mmasias.cloud-ip.cc {
 	reverse_proxy pycelda-web:80
 }
 
-encuestas.mmasias.cloud-ip.cc {
+pulso.mmasias.cloud-ip.cc {
 	import seguridad
 	reverse_proxy pulso-web:80
 }
