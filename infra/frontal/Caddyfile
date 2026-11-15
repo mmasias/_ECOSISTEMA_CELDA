@@ -15,29 +15,22 @@
 }
 
 # ------------------------------------------------------------ raíz
-# FASE 1 (transición): la raíz sigue sirviendo pyCelda, como hasta ahora.
+# FASE 2 (2026-11-15): la raíz es la portada del ecosistema. pyCelda ya solo
+# vive en celda. (login con Google autorizado ahí, OAUTH_REDIRECT_URI y
+# FRONTEND_URL de pyCelda actualizados). Cualquier otra ruta (marcadores y
+# enlaces antiguos a pyCelda) redirige a celda. con la misma ruta.
 mmasias.cloud-ip.cc {
 	import seguridad
-	reverse_proxy pycelda-web:80
+	@portada path / /index.html
+	handle @portada {
+		root * /etc/caddy/home
+		header Cache-Control "no-cache"
+		file_server
+	}
+	handle {
+		redir https://celda.mmasias.cloud-ip.cc{uri} 308
+	}
 }
-
-# FASE 2 (cuando el login de pyCelda funcione en celda.): sustituir el bloque
-# anterior por este. La portada es el concentrador de servicios; cualquier
-# otra ruta (marcadores y enlaces antiguos a pyCelda) redirige a celda. con la
-# misma ruta.
-#
-# mmasias.cloud-ip.cc {
-# 	import seguridad
-# 	@portada path / /index.html
-# 	handle @portada {
-# 		root * /etc/caddy/home
-# 		header Cache-Control "no-cache"
-# 		file_server
-# 	}
-# 	handle {
-# 		redir https://celda.mmasias.cloud-ip.cc{uri} 308
-# 	}
-# }
 
 # ------------------------------------------------------------ servicios
 celda.mmasias.cloud-ip.cc {
