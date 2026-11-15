@@ -21,9 +21,21 @@
 # enlaces antiguos a pyCelda) redirige a celda. con la misma ruta.
 mmasias.cloud-ip.cc {
 	import seguridad
-	@portada path / /index.html
-	handle @portada {
-		root * /etc/caddy/home
+	root * /etc/caddy/home
+	# La raíz no es un fichero real en disco -- hace falta reescribirla a
+	# index.html antes de que el matcher `file` de abajo pueda comprobarla.
+	@raiz path /
+	handle @raiz {
+		rewrite * /index.html
+		header Cache-Control "no-cache"
+		file_server
+	}
+	# `file` comprueba si la ruta existe como fichero real en home/ (el
+	# logo, un css futuro, etc.) -- a diferencia de un listado de rutas,
+	# cualquier estático nuevo que se añada ahí se sirve sin tocar este
+	# bloque. Lo que no exista cae en la redirección a celda.
+	@estatico file
+	handle @estatico {
 		header Cache-Control "no-cache"
 		file_server
 	}
