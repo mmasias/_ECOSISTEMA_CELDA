@@ -20,7 +20,11 @@ services:
       - ecosistema
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://localhost:2019/config/"]
+      # 127.0.0.1, no "localhost": el admin de Caddy solo escucha en IPv4, y
+      # "localhost" en este contenedor resuelve primero a ::1 -- conexión
+      # rechazada aunque Caddy esté sano (detectado tras un reinicio de
+      # Prometeus, 2026-11-15; el servicio público nunca se vio afectado).
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:2019/config/"]
       interval: 30s
       timeout: 5s
       retries: 3
