@@ -26,8 +26,8 @@
   .servicios { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; list-style: none; padding: 0; margin: 0; }
   .servicio a { display: block; height: 100%; background: var(--superficie); border: 1px solid var(--borde); border-top: 4px solid var(--acento); border-radius: 4px; padding: 1.2rem 1.25rem; color: inherit; text-decoration: none; }
   .servicio a:hover, .servicio a:focus-visible { border-color: var(--acento); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--acento) 25%, transparent); }
-  .encabezado-servicio { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.3rem; }
-  .icono-servicio { width: 2.3rem; height: 2.3rem; border-radius: 6px; flex-shrink: 0; }
+  .encabezado-servicio { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; margin-bottom: 0.3rem; }
+  .icono-servicio { width: 4.6rem; height: 4.6rem; border-radius: 6px; flex-shrink: 0; }
   .servicio h2 { margin: 0; font-size: 1.3rem; font-weight: 600; color: var(--acento); }
   .servicio p { margin: 0 0 0.6rem; }
   .servicio .direccion { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: 0.85rem; color: var(--tenue); word-break: break-all; }
@@ -44,8 +44,8 @@
     <li class="servicio">
       <a href="https://celda.mmasias.cloud-ip.cc">
         <div class="encabezado-servicio">
-          <img src="logo-celda.png" alt="" class="icono-servicio">
           <h2>CELDA</h2>
+          <img src="logo-celda.png" alt="" class="icono-servicio">
         </div>
         <p>Guías docentes: programas, asignaturas, planificación de sesiones y revisión de guías.</p>
         <span class="direccion">celda.mmasias.cloud-ip.cc</span>
