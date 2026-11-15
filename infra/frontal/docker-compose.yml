@@ -1,0 +1,40 @@
+# Proxy frontal del ecosistema en Prometeus: único dueño de los puertos 80 y 443.
+# Cada aplicación tiene su propio Compose, se une a la red externa `ecosistema`
+# y expone un servicio web interno (HTTP, puerto 80) con un alias fijo
+# (pycelda-web, pulso-web...). Este Caddy termina TLS (Let's Encrypt, un
+# certificado por subdominio) y reenvía cada subdominio a su alias.
+# Ver README.md.
+services:
+  frontal:
+    image: caddy:2-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # La carpeta entera, no el fichero: `git pull` sustituye el Caddyfile por
+      # uno nuevo y un montaje de fichero suelto seguiría viendo el antiguo.
+      - ./:/etc/caddy:ro
+      - frontal-data:/data
+      - frontal-config:/config
+    networks:
+      - ecosistema
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://localhost:2019/config/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+networks:
+  # Se crea una vez a mano (`docker network create ecosistema`): la comparten
+  # varios Compose y ninguno debe borrarla al hacer `down`.
+  ecosistema:
+    external: true
+
+volumes:
+  # Nombres explícitos: sin ellos Compose los prefija con el directorio y un
+  # cambio de carpeta deja los certificados huérfanos (incidente de pyCelda).
+  frontal-data:
+    name: frontal-data
+  frontal-config:
+    name: frontal-config

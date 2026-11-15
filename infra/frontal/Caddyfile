@@ -1,0 +1,48 @@
+# Proxy frontal del ecosistema (README.md). Un bloque por subdominio; el
+# registro DNS es un comodín (*.mmasias.cloud-ip.cc CNAME mmasias.cloud-ip.cc),
+# así que un servicio nuevo solo necesita su bloque aquí.
+
+(seguridad) {
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+}
+
+# ------------------------------------------------------------ raíz
+# FASE 1 (transición): la raíz sigue sirviendo pyCelda, como hasta ahora.
+mmasias.cloud-ip.cc {
+	import seguridad
+	reverse_proxy pycelda-web:80
+}
+
+# FASE 2 (cuando el login de pyCelda funcione en celda.): sustituir el bloque
+# anterior por este. La portada es el concentrador de servicios; cualquier
+# otra ruta (marcadores y enlaces antiguos a pyCelda) redirige a celda. con la
+# misma ruta.
+#
+# mmasias.cloud-ip.cc {
+# 	import seguridad
+# 	@portada path / /index.html
+# 	handle @portada {
+# 		root * /etc/caddy/home
+# 		header Cache-Control "no-cache"
+# 		file_server
+# 	}
+# 	handle {
+# 		redir https://celda.mmasias.cloud-ip.cc{uri} 308
+# 	}
+# }
+
+# ------------------------------------------------------------ servicios
+celda.mmasias.cloud-ip.cc {
+	import seguridad
+	reverse_proxy pycelda-web:80
+}
+
+encuestas.mmasias.cloud-ip.cc {
+	import seguridad
+	reverse_proxy pulso-web:80
+}

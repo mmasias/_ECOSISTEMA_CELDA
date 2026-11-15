@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ecosistema CELDA</title>
+<meta name="description" content="Acceso a los servicios del ecosistema CELDA: guías docentes y encuestas de satisfacción.">
+<style>
+  :root {
+    --fondo: #f4f5f7; --superficie: #ffffff; --texto: #24292f; --tenue: #5f6670;
+    --borde: #dde1e6; --acento: #2c4a6e; --acento-hover: #1f3651; --aviso: #fff5d6; --aviso-borde: #c9a227;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fondo: #16191d; --superficie: #20242a; --texto: #e6e8eb; --tenue: #a3a9b1;
+      --borde: #353a42; --acento: #8fb3dc; --acento-hover: #b0cbea; --aviso: #2e2a1a; --aviso-borde: #8a7420;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fondo); color: var(--texto); font: 18px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif; }
+  main { max-width: 52rem; margin: 0 auto; padding: 3rem 1rem 4rem; }
+  h1 { font-weight: 600; font-size: 2rem; margin: 0 0 0.25rem; letter-spacing: 0.02em; }
+  .subtitulo { color: var(--tenue); margin: 0 0 2rem; }
+  .aviso { background: var(--aviso); border-left: 4px solid var(--aviso-borde); padding: 0.8rem 1rem; border-radius: 3px; margin-bottom: 2rem; }
+  .aviso a { color: var(--acento); font-weight: 600; }
+  .servicios { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; list-style: none; padding: 0; margin: 0; }
+  .servicio a { display: block; height: 100%; background: var(--superficie); border: 1px solid var(--borde); border-top: 4px solid var(--acento); border-radius: 4px; padding: 1.2rem 1.25rem; color: inherit; text-decoration: none; }
+  .servicio a:hover, .servicio a:focus-visible { border-color: var(--acento); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--acento) 25%, transparent); }
+  .servicio h2 { margin: 0 0 0.3rem; font-size: 1.3rem; font-weight: 600; color: var(--acento); }
+  .servicio p { margin: 0 0 0.6rem; }
+  .servicio .direccion { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: 0.85rem; color: var(--tenue); word-break: break-all; }
+  footer { color: var(--tenue); font-size: 0.85rem; margin-top: 3rem; }
+  footer a { color: var(--tenue); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Ecosistema CELDA</h1>
+  <p class="subtitulo">Servicios académicos construidos sobre el catálogo de CELDA.</p>
+
+  <p class="aviso" role="note">
+    <strong>CELDA ha cambiado de dirección.</strong> Ahora está en
+    <a href="https://celda.mmasias.cloud-ip.cc">celda.mmasias.cloud-ip.cc</a>.
+    Los enlaces antiguos siguen funcionando: llevan a la nueva dirección. Actualice sus marcadores.
+  </p>
+
+  <ul class="servicios">
+    <li class="servicio">
+      <a href="https://celda.mmasias.cloud-ip.cc">
+        <h2>CELDA</h2>
+        <p>Guías docentes: programas, asignaturas, planificación de sesiones y revisión de guías.</p>
+        <span class="direccion">celda.mmasias.cloud-ip.cc</span>
+      </a>
+    </li>
+    <li class="servicio">
+      <a href="https://encuestas.mmasias.cloud-ip.cc">
+        <h2>Encuestas</h2>
+        <p>Encuestas de satisfacción anónimas por asignatura y curso. Para responder, use el código de invitación que ha recibido.</p>
+        <span class="direccion">encuestas.mmasias.cloud-ip.cc</span>
+      </a>
+    </li>
+  </ul>
+
+  <footer>
+    <a href="https://github.com/mmasias/_ECOSISTEMA_CELDA">Mapa del ecosistema</a>
+  </footer>
+</main>
+</body>
+</html>
