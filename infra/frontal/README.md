@@ -20,7 +20,7 @@ Antes, el Caddy de pyCelda publicaba el 80 y el 443 y era el único sitio de la 
 
 1. Su Compose se une a la red externa `ecosistema` y su servicio web lleva un alias fijo en ella (`pycelda-web`, `pulso-web`...).
 2. Ese servicio escucha HTTP en el puerto 80, **sin publicar puertos en el host**.
-3. Sus cabeceras propias (CSP, `X-Frame-Options`, caché) las pone la aplicación. El frontal añade HSTS, `nosniff` y `Referrer-Policy` a todo.
+3. Sus cabeceras propias (CSP, `X-Frame-Options`, caché) las pone la aplicación. El frontal fija HSTS, `nosniff` y `Referrer-Policy` en todo, sustituyendo las de la aplicación si las pone (`defer`): no hace falta quitarlas de ella, ni salen duplicadas.
 4. Si la aplicación necesita la IP real del cliente, confía en `X-Forwarded-For` solo desde la red `ecosistema` (rangos privados).
 
 ## Puesta en marcha (una vez, en Prometeus)
