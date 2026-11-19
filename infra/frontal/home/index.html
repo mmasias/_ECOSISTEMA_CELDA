@@ -22,13 +22,13 @@
   h1 { font-weight: 600; font-size: 2rem; margin: 0 0 0.25rem; letter-spacing: 0.02em; }
   .subtitulo { color: var(--tenue); margin: 0 0 2rem; }
   .servicios { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; list-style: none; padding: 0; margin: 0; }
-  .servicio a { display: block; height: 100%; background: var(--superficie); border: 1px solid var(--borde); border-top: 4px solid var(--acento); border-radius: 4px; padding: 1.2rem 1.25rem; color: inherit; text-decoration: none; }
+  .servicio a { display: flex; flex-direction: column; height: 100%; background: var(--superficie); border: 1px solid var(--borde); border-top: 4px solid var(--acento); border-radius: 4px; padding: 1.2rem 1.25rem; color: inherit; text-decoration: none; }
   .servicio a:hover, .servicio a:focus-visible { border-color: var(--acento); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--acento) 25%, transparent); }
   .encabezado-servicio { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; margin-bottom: 0.3rem; }
   .icono-servicio { width: 4.6rem; height: 4.6rem; border-radius: 6px; flex-shrink: 0; }
   .servicio h2 { margin: 0; font-size: 1.3rem; font-weight: 600; color: var(--acento); }
   .servicio p { margin: 0 0 0.6rem; }
-  .estado-servicio { display: block; text-align: right; font-size: 0.7rem; color: var(--tenue); margin-top: 0.3rem; }
+  .estado-servicio { display: block; text-align: right; font-size: 0.7rem; color: var(--tenue); margin-top: auto; padding-top: 0.3rem; }
   footer { color: var(--tenue); font-size: 0.85rem; margin-top: 3rem; }
   footer a { color: var(--tenue); }
 </style>
