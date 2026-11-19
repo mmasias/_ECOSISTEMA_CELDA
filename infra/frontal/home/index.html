@@ -31,6 +31,7 @@
   .servicio h2 { margin: 0; font-size: 1.3rem; font-weight: 600; color: var(--acento); }
   .servicio p { margin: 0 0 0.6rem; }
   .servicio .direccion { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: 0.85rem; color: var(--tenue); word-break: break-all; }
+  .estado-servicio { display: block; text-align: right; font-size: 0.7rem; color: var(--tenue); margin-top: 0.3rem; }
   footer { color: var(--tenue); font-size: 0.85rem; margin-top: 3rem; }
   footer a { color: var(--tenue); }
 </style>
@@ -49,6 +50,7 @@
         </div>
         <p>Guías docentes: programas, asignaturas, planificación de sesiones y revisión de guías.</p>
         <span class="direccion">celda.mmasias.cloud-ip.cc</span>
+        <span class="estado-servicio" data-estado="celda"></span>
       </a>
     </li>
     <li class="servicio">
@@ -59,6 +61,7 @@
         </div>
         <p>Encuestas de satisfacción anónimas por asignatura y curso. Para responder, use el código de invitación que ha recibido.</p>
         <span class="direccion">pulso.mmasias.cloud-ip.cc</span>
+        <span class="estado-servicio" data-estado="pulso"></span>
       </a>
     </li>
   </ul>
@@ -73,5 +76,24 @@
     <a href="https://github.com/mmasias/_ECOSISTEMA_CELDA">Mapa del ecosistema</a>
   </footer>
 </main>
+<script>
+  // Cada servicio expone /api/version (o el equivalente que ya tuviera, caso
+  // CELDA): {"version": "x.y.z", "esquema_version": N}. El frontal reenvía
+  // en /estado/<servicio> desde el mismo origen -- si el servicio aún no lo
+  // expone (404 o error de red), el hueco queda vacío sin romper nada.
+  function pintarEstado(id) {
+    fetch('/estado/' + id)
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d) return;
+        var texto = d.esquema_version != null ? 'esquema ' + d.esquema_version : '';
+        if (d.version) texto = 'v' + d.version + (texto ? ' · ' + texto : '');
+        document.querySelector('[data-estado="' + id + '"]').textContent = texto;
+      })
+      .catch(function () {});
+  }
+  pintarEstado('celda');
+  pintarEstado('pulso');
+</script>
 </body>
 </html>

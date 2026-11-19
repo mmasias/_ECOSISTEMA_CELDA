@@ -22,6 +22,19 @@
 mmasias.cloud-ip.cc {
 	import seguridad
 	root * /etc/caddy/home
+	# Proxy de solo lectura para que la portada (JS en el navegador) muestre
+	# versión/esquema de cada servicio sin pelearse con CORS: al reenviar
+	# desde el mismo origen (mmasias.), el navegador lo trata como same-origin
+	# y ninguna app necesita saber nada del frontal ni abrir su CORS. Antes
+	# del matcher `file` de abajo porque la ruta no es un fichero real.
+	handle /estado/celda {
+		rewrite * /api/v1/version
+		reverse_proxy pycelda-web:80
+	}
+	handle /estado/pulso {
+		rewrite * /api/version
+		reverse_proxy pulso-web:80
+	}
 	# La raíz no es un fichero real en disco -- hace falta reescribirla a
 	# index.html antes de que el matcher `file` de abajo pueda comprobarla.
 	@raiz path /
